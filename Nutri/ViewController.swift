@@ -108,12 +108,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        //
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // setupTableView()
         
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(buttonTapReturn))
         view.addGestureRecognizer(tap)
         
         self.pesoTomate.delegate = self
@@ -216,7 +218,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         // Se clicar fora da tela de cadastro, será redirecionado para a tela inicial
     }
    
-    @IBAction func buttonTapReturn() {
+   @objc func buttonTapReturn() {
+    self.view.endEditing(true)
         macarraoView.alpha = 1
         tomateView.alpha = 1
         cebolaView.alpha = 1
