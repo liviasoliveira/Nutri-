@@ -116,7 +116,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         
-        
+        self.pesoTomate.delegate = self
+        self.pessoasTomate.delegate = self
         self.pesoCebola.delegate = self
         self.pessoasCebola.delegate = self
         self.pesoMacarrao.delegate = self
@@ -156,7 +157,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     }
     var iscebolaField = false
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField == pesoCebola || textField == pessoasCebola {
+        if textField == pesoCebola || textField == pessoasCebola || textField == pesoTomate || textField == pessoasTomate {
         iscebolaField = true
         }
         return true
