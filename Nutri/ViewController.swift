@@ -10,26 +10,14 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     
-//    let tableview: UITableView = {
-//        let tv = UITableView()
-//        tv.backgroundColor = UIColor.white
-//        tv.translatesAutoresizingMaskIntoConstraints = false
-//        return tv
-//    }()
-//
-//    func setupTableView() {
-//        tableview.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-//
-//        view.addSubview(tableview)
-//    }
-    
-    
     //Collection One
+    @IBOutlet weak var clearButton: UIButton!
     @IBOutlet var estadoDoAlimento: UITextField!
     @IBOutlet var modoDePreparo: UITextField!
     @IBOutlet var labelMacarrao: UILabel!
     @IBOutlet var pesoMacarrao: UITextField!
     @IBOutlet var pessoasMacarrao: UITextField!
+    @IBOutlet var macarraoButton: UIButton!
     @IBAction func calcularMacarrao(_ sender: UIButton) {
         var resultadoMacarrao = calcularTempo(peso: pesoMacarrao.text!, pessoas: pessoasMacarrao.text!)
         if estadoDoAlimento.text == "Congelado" {
@@ -40,7 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         
         let tempoCalculado = String(resultadoMacarrao) + " minutos"
         
-        sender.setTitle(tempoCalculado, for:.normal)
+        macarraoButton.setTitle(tempoCalculado, for:.normal)
     }
     //setTitle é uma das funcoes para mudar o texto do botao com o toque.
     
@@ -98,6 +86,30 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         
     }
     
+    //Clear Button Pressed
+    @IBAction func clearPressed(_ sender: Any) {
+        pesoMacarrao.text = ""
+        pesoTomate.text = ""
+        pesoCebola.text = ""
+        pessoasMacarrao.text = ""
+        pessoasTomate.text = ""
+        pessoasCebola.text = ""
+        modoDePreparo.text = ""
+        modoDePreparo2.text = ""
+        modoDePreparo3.text = ""
+        estadoDoAlimento.text = ""
+        estadoDoAlimento2.text = ""
+        estadoDoAlimento3.text = ""
+        macarraoButton.setTitle("CALCULAR TEMPO", for: .normal)
+        tomateButton.setTitle("CALCULAR TEMPO", for: .normal)
+        cebolaButton.setTitle("CALCULAR TEMPO", for: .normal)
+        clearButton.isEnabled = false
+    }
+    func textViewDidChange (textView: UITextView){
+        clearButton.isEnabled = !textView.text.isEmpty
+    }
+    
+    
     @IBAction func tocarTela(_ sender: Any) {
         self.pesoMacarrao.resignFirstResponder()
         
@@ -107,8 +119,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        //
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -312,8 +322,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
             estadoDoAlimento3.text = estado[row]
         }
     }
-    
-    
     
 }
 
